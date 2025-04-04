@@ -1,9 +1,38 @@
-export default function Home() {
-  return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-white bg-gray-900">
-      <h1 className="text-5xl font-bold">CryptoWeather Nexus</h1>
-      <p className="mt-4 text-lg">Your one-stop dashboard for real-time Weather & Crypto data.</p>
-      <a href="/dashboard" className="mt-6 bg-blue-600 hover:bg-blue-800 px-6 py-2 rounded text-white">Go to Dashboard</a>
+"use client";
+import {motion} from "framer-motion"
+
+export default function Home(){
+  return(
+    <main className="min-h-screen flex flex-col items-center justify-center text-white bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-6">
+      <motion.h1
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-6xl font-extrabold text-center bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent drop-shadow-lg"
+      >
+        CryptoWeather Nexus
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="mt-6 text-xl text-gray-300 max-w-xl text-center"
+      >
+        Your one-stop dashboard for real-time <span className="text-blue-400 font-semibold">Weather</span> & <span className="text-purple-400 font-semibold">Crypto</span> data.
+      </motion.p>
+
+      <motion.a
+        href="/dashboard"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.8, duration: 0.4 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="mt-10 bg-blue-600 hover:bg-blue-800 transition duration-300 px-8 py-3 rounded-xl text-white font-medium shadow-md"
+      >
+        🚀 Go to Dashboard
+      </motion.a>
     </main>
-  );
+  )
 }
