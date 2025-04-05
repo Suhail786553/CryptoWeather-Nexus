@@ -1,30 +1,37 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import {getCryptoData} from '../../lib/crypto';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getCryptoData } from '../../lib/crypto';
 
-
-export const fetchCrypto=createAsyncThunk('crypto/fetch',async()=>{
-    return await getCryptoData(['bitcoin', 'ethereum', 'dogecoin']);
+export const fetchCrypto = createAsyncThunk('crypto/fetch', async () => {
+  return await getCryptoData(['bitcoin', 'ethereum', 'dogecoin']);
 });
-const cryptoSlice=createSlice({
-    name: 'crypto',
-    initialState: {
-      data: [],
-      favorites: JSON.parse(localStorage.getItem('cryptoFavorites')) || [],
-      loading: false,
-      error: null,
+
+// Helper function to safely get favorites from localStorage
+const cryptoSlice = createSlice({
+  name: 'crypto',
+  initialState: {
+    data: [],
+    favorites: [], // Will be set dynamically in useEffect
+    loading: false,
+    error: null,
+  },
+  reducers: {
+    initializeFavorites: (state) => {
+      const stored = typeof window !== 'undefined' ? localStorage.getItem('cryptoFavorites') : null;
+      state.favorites = stored ? JSON.parse(stored) : [];
     },
-    reducers: {
-      toggleFavoriteCrypto: (state, action) => {
-        const crypto = action.payload;
-        if (state.favorites.includes(crypto)) {
-          state.favorites = state.favorites.filter(c => c !== crypto);
-        } else {
-          state.favorites.push(crypto);
-        }
+    toggleFavoriteCrypto: (state, action) => {
+      const crypto = action.payload;
+      if (state.favorites.includes(crypto)) {
+        state.favorites = state.favorites.filter(c => c !== crypto);
+      } else {
+        state.favorites.push(crypto);
+      }
+      if (typeof window !== 'undefined') {
         localStorage.setItem('cryptoFavorites', JSON.stringify(state.favorites));
-      },
+      }
     },
-extraReducers: builder => {
+  },
+  extraReducers: builder => {
     builder
       .addCase(fetchCrypto.pending, state => {
         state.loading = true;
@@ -40,5 +47,6 @@ extraReducers: builder => {
       });
   },
 });
-export const { toggleFavoriteCrypto } = cryptoSlice.actions;
+
+export const { toggleFavoriteCrypto, initializeFavorites } = cryptoSlice.actions;
 export default cryptoSlice.reducer;

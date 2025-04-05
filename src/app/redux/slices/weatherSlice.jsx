@@ -9,7 +9,7 @@ const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
     data: [],
-    favorites: JSON.parse(localStorage.getItem('weatherFavorites')) || [],
+    favorites: [],
     loading: false,
     error: null,
   },
@@ -21,7 +21,11 @@ const weatherSlice = createSlice({
       } else {
         state.favorites.push(city);
       }
-      localStorage.setItem('weatherFavorites', JSON.stringify(state.favorites));
+
+      // Only update localStorage if in the browser
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('weatherFavorites', JSON.stringify(state.favorites));
+      }
     },
   },
   extraReducers: builder => {

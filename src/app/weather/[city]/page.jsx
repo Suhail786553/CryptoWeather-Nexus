@@ -5,14 +5,15 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 
 export default function CityDetailPage() {
-  const { city } = useParams();
+  const { city: encodedCity } = useParams();
+  const city = decodeURIComponent(encodedCity);
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         const res = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API}`
         );
         setWeather(res.data);
       } catch (error) {
