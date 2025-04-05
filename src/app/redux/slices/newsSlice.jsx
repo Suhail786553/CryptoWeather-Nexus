@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getNewsData } from "../../lib/news";
 
-// Async thunk to fetch top 5 crypto news headlines
 export const fetchNews = createAsyncThunk('news/fetch', async () => {
-  return await getNewsData(); // returns top 5 crypto-related news
+  return await getNewsData();
 });
 
 const newsSlice = createSlice({

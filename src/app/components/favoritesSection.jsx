@@ -1,14 +1,14 @@
 "use client";
 import { useSelector } from "react-redux";
- 
-export default function FavoriteSection(){
+
+export default function FavoriteSection() {
     const { data: weatherData, favorites: favoriteCities } = useSelector(state => state.weather);
     const { data: cryptoData, favorites: favoriteCryptos } = useSelector(state => state.crypto);
 
     const favoriteWeather = weatherData.filter(city => favoriteCities.includes(city.name));
     const favoriteCrypto = cryptoData.filter(coin => favoriteCryptos.includes(coin.name));
-return(
-<div className="space-y-8">
+    return (
+        <div className="space-y-8">
             <div className="bg-blue-800 p-4 rounded-xl shadow-md">
                 <h3 className="text-2xl font-bold text-white mb-3">🌤️ Favorite Weather Cities</h3>
                 {favoriteWeather.length === 0 ? (
@@ -42,5 +42,5 @@ return(
                 )}
             </div>
         </div>
-);
+    );
 }

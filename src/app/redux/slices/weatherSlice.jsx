@@ -22,7 +22,6 @@ const weatherSlice = createSlice({
         state.favorites.push(city);
       }
 
-      // Only update localStorage if in the browser
       if (typeof window !== 'undefined') {
         localStorage.setItem('weatherFavorites', JSON.stringify(state.favorites));
       }
