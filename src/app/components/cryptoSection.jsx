@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCrypto, toggleFavoriteCrypto } from '../redux/slices/cryptoSlice';
+import RealTimeHandler from './RealTimeHandler';
 import Link from 'next/link';
 
 export default function CryptoSection() {
@@ -14,7 +15,7 @@ export default function CryptoSection() {
   }, [dispatch]);
 
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 mt-6 w-full max-w-4xl mx-auto">
+    <><RealTimeHandler /><div className="bg-white shadow-lg rounded-xl p-6 mt-6 w-full max-w-4xl mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center text-black">🚀 Cryptocurrency Stats</h2>
 
       {loading && <p className="text-center text-gray-600">Loading...</p>}
@@ -48,6 +49,6 @@ export default function CryptoSection() {
           </Link>
         ))}
       </div>
-    </div>
+    </div></>
   );
 }
