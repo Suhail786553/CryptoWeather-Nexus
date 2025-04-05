@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCrypto } from '../redux/slices/cryptoSlice';
+import { fetchCrypto, toggleFavoriteCrypto } from '../redux/slices/cryptoSlice';
 
 export default function CryptoSection() {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(state => state.crypto);
+  const { data, loading, error, favorites } = useSelector(state => state.crypto);
 
   useEffect(() => {
     dispatch(fetchCrypto());
@@ -23,8 +23,17 @@ export default function CryptoSection() {
         {data?.map(coin => (
           <div
             key={coin.id}
-            className="border border-gray-200 p-4 rounded-lg flex flex-col items-center bg-gray-50 hover:shadow-md transition"
+            className="border border-gray-200 p-4 rounded-lg flex flex-col items-center bg-gray-50 hover:shadow-md transition relative"
           >
+            {/* Favorite star button in top-right corner */}
+            <button
+              onClick={() => dispatch(toggleFavoriteCrypto(coin.name))}
+              className="absolute top-2 right-2 text-yellow-400 text-2xl"
+              title="Toggle Favorite"
+            >
+              {favorites.includes(coin.name) ? '★' : '☆'}
+            </button>
+
             <img src={coin.image} alt={coin.name} className="h-12 mb-2" />
             <h3 className="font-semibold text-lg">{coin.name}</h3>
             <p className="text-sm text-gray-500">{coin.symbol.toUpperCase()}</p>

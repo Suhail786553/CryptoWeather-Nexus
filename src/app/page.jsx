@@ -1,5 +1,7 @@
 "use client";
 import {motion} from "framer-motion"
+import Link from "next/link";
+const MotionLink=motion(Link);
 
 export default function Home(){
   return(
@@ -17,22 +19,24 @@ export default function Home(){
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="mt-6 text-xl text-gray-300 max-w-xl text-center"
+        className="mt-6 mb-8 text-xl text-gray-300 max-w-xl text-center"
       >
         Your one-stop dashboard for real-time <span className="text-blue-400 font-semibold">Weather</span> & <span className="text-purple-400 font-semibold">Crypto</span> data.
       </motion.p>
 
-      <motion.a
-        href="/dashboard"
+      {/* <Link href="/dashboard" passHref> */}
+      <MotionLink
+      href="/dashboard"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.8, duration: 0.4 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="mt-10 bg-blue-600 hover:bg-blue-800 transition duration-300 px-8 py-3 rounded-xl text-white font-medium shadow-md"
+        className="bg-blue-600 hover:bg-blue-800 transition duration-300 px-8 py-4 rounded-xl text-white font-medium shadow-md"
       >
         🚀 Go to Dashboard
-      </motion.a>
+      </MotionLink>
+      {/* </Link> */}
     </main>
   )
 }

@@ -3,11 +3,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeather } from '../redux/slices/weatherSlice';
+import { toggleFavoriteCity } from '../redux/slices/weatherSlice';
 import Link from 'next/link';
 
 export default function WeatherSection() {
     const dispatch = useDispatch();
-    const { data, loading, error } = useSelector(state => state.weather);
+    const { data, loading, error,favorites } = useSelector(state => state.weather);
 
     useEffect(() => {
         dispatch(fetchWeather());
@@ -24,17 +25,26 @@ export default function WeatherSection() {
             ) : (
                 <div className="space-y-4">
                     {data.map((city, index) => (
-                        <Link key={index} href={`/weather/${city.name.toLowerCase()}`}>
+                        <><Link key={index} href={`/weather/${city.name.toLowerCase()}`}>
                             <div className="bg-white bg-opacity-10 hover:bg-opacity-20 p-4 rounded-lg cursor-pointer transition duration-200 mb-4">
                                 <h4 className="text-xl font-semibold text-black">{city.name}</h4>
                                 <p className=" text-sm text-black">
                                     🌡️ {city.temp}°C | 💧 {city.humidity}% | {city.condition}
                                 </p>
                             </div>
-                        </Link>
+
+                        </Link><button
+                            onClick={() => dispatch(toggleFavoriteCity(city.name))}
+                            className="text-yellow-400 text-2xl ml-4"
+                            title="Toggle Favorite"
+                        >
+                                {favorites.includes(city.name) ? '★' : '☆'}
+                            </button></>
                     ))}
                 </div>
+                
             )}
+            
         </div>
     );
 }

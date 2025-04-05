@@ -9,8 +9,20 @@ const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
     data: [],
+    favorites: JSON.parse(localStorage.getItem('weatherFavorites')) || [],
     loading: false,
     error: null,
+  },
+  reducers: {
+    toggleFavoriteCity: (state, action) => {
+      const city = action.payload;
+      if (state.favorites.includes(city)) {
+        state.favorites = state.favorites.filter(c => c !== city);
+      } else {
+        state.favorites.push(city);
+      }
+      localStorage.setItem('weatherFavorites', JSON.stringify(state.favorites));
+    },
   },
   extraReducers: builder => {
     builder
@@ -27,5 +39,5 @@ const weatherSlice = createSlice({
       });
   },
 });
-
+export const { toggleFavoriteCity } = weatherSlice.actions;
 export default weatherSlice.reducer;
