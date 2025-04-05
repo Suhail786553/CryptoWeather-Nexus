@@ -14,7 +14,6 @@ export const getNewsData = async () => {
       },
     });
 
-    // Return only top 5 articles
     return response.data.results.slice(0, 5).map(article => ({
       title: article.title,
       link: article.link,

@@ -23,8 +23,8 @@ export default function WeatherSection() {
                 <p className="text-red-400">Error: {error}</p>
             ) : (
                 <div className="space-y-4">
-                    {data.map((city, index) => (
-                        <><Link key={index} href={`/weather/${city.name.toLowerCase()}`}>
+                    {data.map((city) => (
+                        <><Link key={city.name} href={`/weather/${city.name.toLowerCase()}`}>
                             <div className="bg-white bg-opacity-10 hover:bg-opacity-20 p-4 rounded-lg cursor-pointer transition duration-200 mb-4">
                                 <h4 className="text-xl font-semibold text-black">{city.name}</h4>
                                 <p className=" text-sm text-black">

@@ -5,12 +5,11 @@ export const fetchCrypto = createAsyncThunk('crypto/fetch', async () => {
   return await getCryptoData(['bitcoin', 'ethereum', 'dogecoin']);
 });
 
-// Helper function to safely get favorites from localStorage
 const cryptoSlice = createSlice({
   name: 'crypto',
   initialState: {
     data: [],
-    favorites: [], // Will be set dynamically in useEffect
+    favorites: [],
     loading: false,
     error: null,
   },
